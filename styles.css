@@ -101,7 +101,7 @@ a {
   min-height: 720px;
   display: flex;
   align-items: center;
-  background: url("jacksonville-skyline-hero.jpg") center/cover no-repeat;
+  background: url("jacksonville-skyline-hero.png") center/cover no-repeat;
 }
 
 .hero-overlay {
