@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="JackpotJax delivers Jacksonville's best business closings, clearance sales, warehouse deals, estate sales, grand openings, and hidden local finds." />
+  <title>JackpotJax | Jacksonville Deals</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="#top" class="brand" aria-label="JackpotJax Insider home">
+      <span class="brand-crown">♛</span>
+      <span class="brand-main">JACKPOTJAX</span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#how">How it works</a>
+      <a href="#discover">What you'll discover</a>
+      <a href="#membership">Membership</a>
+      <a href="#areas">Areas</a>
+    </nav>
+
+    <a class="outline-button" href="#membership">Start Free Trial</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">Jacksonville's deals membership</p>
+
+        <h1>
+          Never miss a<br>
+          Jackpot deal in<br>
+          <span>JAX</span> again.
+        </h1>
+
+        <p class="hero-text">
+          We uncover Jacksonville's best business closings, liquidation sales,
+          warehouse deals, estate sales, grand openings, and hidden local bargains—
+          before everyone else.
+        </p>
+
+        <a class="gold-button" href="#membership">Start Your 7-Day Free Trial</a>
+
+        <p class="trial-note">
+          No charge today &nbsp;•&nbsp; $7/month after trial &nbsp;•&nbsp; Cancel anytime
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="discover">
+      <div class="section-title">
+        <span></span>
+        <h2>What you'll discover</h2>
+        <span></span>
+      </div>
+
+      <div class="category-grid">
+        <article>
+          <div class="icon">🏪</div>
+          <h3>Business Closings</h3>
+          <p>Save big at stores liquidating inventory before they close.</p>
+        </article>
+
+        <article>
+          <div class="icon">🏷️</div>
+          <h3>Clearance Sales</h3>
+          <p>Deep discounts on overstock, end-of-season, and clearance events.</p>
+        </article>
+
+        <article>
+          <div class="icon">📦</div>
+          <h3>Warehouse Deals</h3>
+          <p>Exclusive access to warehouse sales and liquidation events.</p>
+        </article>
+
+        <article>
+          <div class="icon">🪑</div>
+          <h3>Estate Sales</h3>
+          <p>Find amazing deals on furniture, collectibles, and more.</p>
+        </article>
+
+        <article>
+          <div class="icon">🎉</div>
+          <h3>Grand Openings</h3>
+          <p>Be the first to know about new businesses and special offers.</p>
+        </article>
+
+        <article>
+          <div class="icon">💎</div>
+          <h3>Hidden Finds</h3>
+          <p>Handpicked local bargains you won't find anywhere else.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="section-title">
+        <span></span>
+        <h2>Why JackpotJax?</h2>
+        <span></span>
+      </div>
+
+      <div class="steps-grid">
+        <article>
+          <div class="step-icon">🔎</div>
+          <h3>We Search</h3>
+          <p>Our team scours Northeast Florida daily to find the best deals and events.</p>
+        </article>
+
+        <div class="arrow">→</div>
+
+        <article>
+          <div class="step-icon">✓</div>
+          <h3>We Verify</h3>
+          <p>We confirm the details so you only get legitimate, high-value opportunities.</p>
+        </article>
+
+        <div class="arrow">→</div>
+
+        <article>
+          <div class="step-icon">✉</div>
+          <h3>We Alert</h3>
+          <p>You get early access to exclusive deals before they're public.</p>
+        </article>
+
+        <div class="arrow">→</div>
+
+        <article>
+          <div class="step-icon">$</div>
+          <h3>You Save</h3>
+          <p>You show up, score big, and keep more money in your pocket.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section membership-section" id="membership">
+      <div class="membership-card">
+        <div class="membership-heading">
+          <span class="small-crown">♛</span>
+          <h2>Join JackpotJax</h2>
+        </div>
+
+        <div class="membership-details">
+          <div>
+            <strong>7-Day Free Trial</strong>
+            <p>No charge today. Cancel anytime.</p>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <strong>$7 / Month</strong>
+            <p>After trial. Cancel anytime.</p>
+          </div>
+        </div>
+
+        <form
+          class="signup-form"
+          name="jackpot-insider-interest"
+          method="POST"
+          action="/success.html"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="jackpot-insider-interest">
+          <p class="hidden">
+            <label>Do not fill this out: <input name="bot-field"></label>
+          </p>
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            aria-label="Email address"
+            required
+          >
+
+          <button type="submit" class="gold-button">
+            Start Your 7-Day Free Trial
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <section class="areas" id="areas">
+      <p>Proudly serving Northeast Florida</p>
+      <div class="area-list">
+        <span>Jacksonville</span>
+        <span>St. Johns</span>
+        <span>Ponte Vedra Beach</span>
+        <span>Nocatee</span>
+        <span>Orange Park</span>
+        <span>Fleming Island</span>
+        <span>St. Augustine</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> JackpotJax</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
