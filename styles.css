@@ -79,6 +79,7 @@ a {
 .nav a {
   color: white;
   text-decoration: none;
+  font-family: "Playfair Display", serif;
   font-size: 14px;
   font-weight: 700;
 }
