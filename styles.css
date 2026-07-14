@@ -294,6 +294,16 @@ h1 span {
   font-size: 32px;
 }
 
+.step-icon svg {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .arrow {
   color: var(--gold);
   font-size: 34px;
