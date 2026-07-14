@@ -22,7 +22,7 @@ body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Manrope, system-ui, sans-serif;
 }
 
 a {
@@ -79,6 +79,7 @@ a {
 .nav a {
   color: white;
   text-decoration: none;
+  font-family: "Playfair Display", serif;
   font-size: 14px;
   font-weight: 700;
 }
@@ -137,6 +138,7 @@ h2 {
 
 h1 {
   margin: 0;
+  font-family: "DM Serif Display", serif;
   font-size: clamp(58px, 7vw, 94px);
   line-height: .94;
   letter-spacing: -.035em;
@@ -199,7 +201,7 @@ h1 span {
 .section-title h2 {
   margin: 0;
   color: var(--gold-dark);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Manrope, system-ui, sans-serif;
   font-size: 17px;
   letter-spacing: .05em;
   text-transform: uppercase;
