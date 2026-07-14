@@ -44,31 +44,46 @@ a {
 .brand {
   display: inline-flex;
   width: max-content;
-  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: white;
   text-decoration: none;
 }
 
-.brand-crown {
+.brand-mark {
+  width: 66px;
+  height: 66px;
+  flex: 0 0 auto;
   color: var(--gold);
-  font-size: 28px;
-  line-height: 1;
+}
+
+.brand-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
 }
 
 .brand-main {
-  margin-top: 3px;
   font-family: "Playfair Display", serif;
-  font-size: 31px;
+  font-size: 28px;
   line-height: .9;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
   font-weight: 700;
+  white-space: nowrap;
+}
+
+.brand-main span {
+  color: var(--gold);
 }
 
 .brand-sub {
-  margin-top: 8px;
-  color: var(--gold);
-  font-size: 11px;
-  letter-spacing: .36em;
-  text-align: center;
+  margin-top: 9px;
+  color: rgba(255, 255, 255, .72);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .nav {
@@ -420,8 +435,23 @@ footer {
     padding: 18px;
   }
 
+  .brand {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 52px;
+    height: 52px;
+  }
+
   .brand-main {
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .brand-sub {
+    margin-top: 6px;
+    font-size: 7px;
+    letter-spacing: .16em;
   }
 
   .outline-button {
