@@ -22,7 +22,7 @@ body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Manrope, system-ui, sans-serif;
 }
 
 a {
@@ -199,7 +199,7 @@ h1 span {
 .section-title h2 {
   margin: 0;
   color: var(--gold-dark);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Manrope, system-ui, sans-serif;
   font-size: 17px;
   letter-spacing: .05em;
   text-transform: uppercase;
