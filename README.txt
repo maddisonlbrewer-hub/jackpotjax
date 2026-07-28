@@ -28,3 +28,17 @@ Stripe sends subscription changes to /api/stripe-webhook. The signed webhook
 stores each subscriber privately in the site-scoped jackpot-jax-subscribers
 Netlify Blobs store. Trialing and active subscriptions have access; canceled,
 unpaid, paused, and incomplete subscriptions do not.
+
+WELCOME EMAIL SETUP
+New trialing or active members are queued for a one-time welcome email. The
+email is sent through Resend, and failed sends are retried every 15 minutes.
+Stripe test-mode signups are suppressed unless explicitly enabled.
+
+Add these environment variables in Netlify before enabling email delivery:
+- RESEND_API_KEY
+- WELCOME_EMAIL_FROM (example: Jackpot JAX <hello@updates.jackpotjax.co>)
+- WELCOME_EMAIL_REPLY_TO (optional)
+- WELCOME_EMAIL_ALLOW_TEST_MODE (optional; set to true only while testing)
+
+The sending domain must be verified in Resend. Preview the finished design at
+/welcome-email-template without sending an email.
