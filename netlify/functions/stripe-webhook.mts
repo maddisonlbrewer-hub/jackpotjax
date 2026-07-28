@@ -1,13 +1,18 @@
 import { getStore } from "@netlify/blobs";
 import type { Config, Context } from "@netlify/functions";
 import Stripe from "stripe";
+import {
+  deliverWelcomeEmail,
+  queueWelcomeEmail,
+  SUBSCRIBER_STORE_NAME,
+} from "./_shared/welcome-email.mts";
 
 const ACTIVE_SUBSCRIPTION_STATUSES = new Set(["active", "trialing"]);
-const SUBSCRIBER_STORE_NAME = "jackpot-jax-subscribers";
 
 type SubscriberRecord = {
   stripeCustomerId: string;
   stripeSubscriptionId: string;
+  stripeLivemode: boolean;
   email: string | null;
   status: Stripe.Subscription.Status;
   accessActive: boolean;
@@ -77,6 +82,7 @@ const saveSubscription = async ({
   const record: SubscriberRecord = {
     stripeCustomerId: customerId,
     stripeSubscriptionId: subscription.id,
+    stripeLivemode: event.livemode,
     email,
     status: subscription.status,
     accessActive: ACTIVE_SUBSCRIPTION_STATUSES.has(subscription.status),
@@ -95,6 +101,7 @@ const saveSubscription = async ({
   };
 
   await store.setJSON(key, record);
+  return record;
 };
 
 export default async (req: Request, context: Context) => {
@@ -147,12 +154,14 @@ export default async (req: Request, context: Context) => {
 
         if (subscriptionId) {
           const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-          await saveSubscription({
+          const subscriber = await saveSubscription({
             stripe,
             subscription,
             event,
             preferredEmail: session.customer_details?.email || session.customer_email,
           });
+          await queueWelcomeEmail(subscriber);
+          context.waitUntil(deliverWelcomeEmail(subscriber));
         }
         break;
       }
@@ -162,11 +171,15 @@ export default async (req: Request, context: Context) => {
       case "customer.subscription.deleted":
       case "customer.subscription.paused":
       case "customer.subscription.resumed":
-        await saveSubscription({
-          stripe,
-          subscription: event.data.object as Stripe.Subscription,
-          event,
-        });
+        {
+          const subscriber = await saveSubscription({
+            stripe,
+            subscription: event.data.object as Stripe.Subscription,
+            event,
+          });
+          await queueWelcomeEmail(subscriber);
+          context.waitUntil(deliverWelcomeEmail(subscriber));
+        }
         break;
 
       default:
