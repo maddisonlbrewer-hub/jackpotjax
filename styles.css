@@ -291,7 +291,6 @@ h1 span {
   border: 1px solid var(--gold);
   border-radius: 50%;
   color: var(--gold);
-  font-size: 32px;
 }
 
 .step-icon svg {
@@ -302,6 +301,27 @@ h1 span {
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.magnifying-icon {
+  position: relative;
+  width: 21px;
+  height: 21px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.magnifying-icon::after {
+  position: absolute;
+  right: -9px;
+  bottom: -5px;
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  transform: rotate(45deg);
+  transform-origin: left center;
 }
 
 .arrow {
@@ -322,6 +342,11 @@ h1 span {
   background: linear-gradient(180deg, #1c1c1c, #111);
   color: white;
   box-shadow: 0 24px 60px rgba(0, 0, 0, .22);
+  transition: max-width .35s ease;
+}
+
+.membership-card.checkout-active {
+  max-width: 980px;
 }
 
 .membership-heading {
@@ -371,7 +396,21 @@ h1 span {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 12px;
+  align-items: end;
   margin-top: 26px;
+}
+
+.signup-field {
+  display: grid;
+  gap: 7px;
+}
+
+.signup-field label {
+  color: #d8cfc4;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
 .signup-form input {
@@ -384,9 +423,244 @@ h1 span {
   font: inherit;
 }
 
+.signup-form input:focus {
+  border-color: var(--gold);
+  outline: 3px solid rgba(197, 143, 45, .2);
+}
+
+.signup-form button:disabled {
+  cursor: wait;
+  opacity: .72;
+}
+
+.signup-form button {
+  min-height: 52px;
+}
+
+.signup-status {
+  min-height: 18px;
+  margin: 10px 0 -4px;
+  color: #d8c6a6;
+  font-size: 12px;
+  text-align: center;
+}
+
+.signup-status:empty {
+  display: none;
+}
+
+.signup-status.is-error {
+  color: #ffb8ad;
+}
+
+.signup-note {
+  margin: 14px 0 0;
+  color: #bdb4aa;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.embedded-checkout-shell {
+  margin-top: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(197, 143, 45, .48);
+  border-radius: 14px;
+  background: #08111d;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, .34);
+}
+
+.embedded-checkout-header {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid rgba(197, 143, 45, .3);
+  background: linear-gradient(135deg, #0c1826, #111820);
+}
+
+.embedded-checkout-header h3 {
+  margin: 2px 0 5px;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: 24px;
+}
+
+.embedded-checkout-header p {
+  margin: 0;
+  color: #bdb4aa;
+  font-size: 12px;
+}
+
+.embedded-checkout-header .checkout-kicker {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.checkout-back {
+  flex: 0 0 auto;
+  padding: 10px 13px;
+  border: 1px solid rgba(197, 143, 45, .72);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.checkout-back:hover,
+.checkout-back:focus-visible {
+  background: rgba(197, 143, 45, .12);
+}
+
+#embedded-checkout {
+  min-height: 620px;
+  padding: 16px;
+  background: #08111d;
+}
+
+.checkout-trust {
+  margin: 0;
+  padding: 0 24px 22px;
+  color: #bdb4aa;
+  font-size: 11px;
+  letter-spacing: .02em;
+  text-align: center;
+}
+
 .hidden {
   position: absolute;
   left: -9999px;
+}
+
+.success-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 85% 12%, rgba(197, 143, 45, .18), transparent 30%),
+    linear-gradient(135deg, #08111d 0%, #111 58%, #201609 100%);
+  color: white;
+}
+
+.success-shell {
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 44px 0 64px;
+}
+
+.success-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  text-decoration: none;
+}
+
+.success-brand .brand-mark {
+  width: 54px;
+  height: 54px;
+}
+
+.success-card {
+  max-width: 760px;
+  margin: 70px auto 0;
+  padding: clamp(32px, 6vw, 64px);
+  border: 1px solid rgba(197, 143, 45, .55);
+  border-radius: 24px;
+  background: rgba(12, 14, 17, .84);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .38);
+  text-align: center;
+}
+
+.success-kicker {
+  margin: 0 0 14px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.success-card h1 {
+  font-size: clamp(48px, 8vw, 78px);
+  line-height: 1;
+}
+
+.success-lede {
+  max-width: 590px;
+  margin: 24px auto 0;
+  color: #ddd5cb;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.success-next {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 34px 0;
+  text-align: left;
+}
+
+.success-next article {
+  padding: 20px;
+  border: 1px solid rgba(197, 143, 45, .25);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .035);
+}
+
+.success-next span {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.success-next strong {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+
+.success-next p {
+  margin: 0;
+  color: #bdb4aa;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.text-button {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border: 1px solid rgba(197, 143, 45, .75);
+  border-radius: 4px;
+  color: var(--gold);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.success-fine-print {
+  margin: 24px 0 0;
+  color: #928a81;
+  font-size: 11px;
+  line-height: 1.6;
 }
 
 .areas {
@@ -540,5 +814,37 @@ footer {
 
   .signup-form {
     grid-template-columns: 1fr;
+  }
+
+  .embedded-checkout-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .checkout-back {
+    width: 100%;
+  }
+
+  #embedded-checkout {
+    min-height: 720px;
+    padding: 8px;
+  }
+
+  .success-shell {
+    padding-top: 24px;
+  }
+
+  .success-card {
+    margin-top: 44px;
+    padding: 32px 20px;
+  }
+
+  .success-next {
+    grid-template-columns: 1fr;
+  }
+
+  .success-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
