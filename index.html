@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="JackpotJax delivers Jacksonville's best business closings, clearance sales, warehouse deals, estate sales, grand openings, and hidden local finds." />
-  <title>JackpotJax | Jacksonville Deals</title>
+  <meta name="description" content="Jackpot JAX delivers Jacksonville's best business closings, clearance sales, warehouse deals, estate sales, grand openings, and hidden local finds." />
+  <title>Jackpot JAX | Jacksonville Deals</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Playfair+Display:wght@600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://js.stripe.com/clover/stripe.js"></script>
 </head>
 
 <body>
   <header class="site-header">
-    <a href="#top" class="brand" aria-label="JackpotJax home">
+    <a href="#top" class="brand" aria-label="Jackpot JAX home">
       <svg class="brand-mark" viewBox="0 0 220 220" aria-hidden="true" focusable="false">
         <circle cx="110" cy="110" r="102" fill="none" stroke="currentColor" stroke-width="5"></circle>
         <g transform="translate(22 58) scale(.44)" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="square" stroke-linejoin="round">
@@ -23,7 +24,7 @@
         </g>
       </svg>
       <span class="brand-copy">
-        <span class="brand-main">JACKPOT<span>JAX</span></span>
+        <span class="brand-main">Jackpot <span>JAX</span></span>
         <span class="brand-sub">JACKSONVILLE, FLORIDA</span>
       </span>
     </a>
@@ -140,17 +141,14 @@
     <section class="section" id="how">
       <div class="section-title">
         <span></span>
-        <h2>Why JackpotJax?</h2>
+        <h2>Why Jackpot JAX?</h2>
         <span></span>
       </div>
 
       <div class="steps-grid">
         <article>
           <div class="step-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <circle cx="10.5" cy="10.5" r="6.5"></circle>
-              <path d="m15.5 15.5 4.5 4.5"></path>
-            </svg>
+            <span class="magnifying-icon" aria-hidden="true"></span>
           </div>
           <h3>We Search</h3>
           <p>Our team scours Northeast Florida daily to find the best deals and events.</p>
@@ -159,7 +157,12 @@
         <div class="arrow">→</div>
 
         <article>
-          <div class="step-icon">✓</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 3.5 19 6v5.5c0 4.2-2.7 7.4-7 9-4.3-1.6-7-4.8-7-9V6l7-2.5Z"></path>
+              <path d="m8.5 12 2.2 2.2 4.8-4.8"></path>
+            </svg>
+          </div>
           <h3>We Verify</h3>
           <p>We confirm the details so you only get legitimate, high-value opportunities.</p>
         </article>
@@ -167,7 +170,13 @@
         <div class="arrow">→</div>
 
         <article>
-          <div class="step-icon">✉</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6.5 16.5h11l-1.4-2.1V10a4.1 4.1 0 0 0-8.2 0v4.4l-1.4 2.1Z"></path>
+              <path d="M10 19h4"></path>
+              <path d="M18.5 7.5 20 6M5.5 7.5 4 6"></path>
+            </svg>
+          </div>
           <h3>We Alert</h3>
           <p>You get early access to exclusive deals before they're public.</p>
         </article>
@@ -175,7 +184,13 @@
         <div class="arrow">→</div>
 
         <article>
-          <div class="step-icon">$</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <ellipse cx="12" cy="7" rx="6.5" ry="3"></ellipse>
+              <path d="M5.5 7v5c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3V7"></path>
+              <path d="M5.5 12v5c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3v-5"></path>
+            </svg>
+          </div>
           <h3>You Save</h3>
           <p>You show up, score big, and keep more money in your pocket.</p>
         </article>
@@ -186,48 +201,66 @@
       <div class="membership-card">
         <div class="membership-heading">
           <span class="small-crown">♛</span>
-          <h2>Join JackpotJax</h2>
+          <h2>Join Jackpot JAX</h2>
         </div>
 
         <div class="membership-details">
           <div>
             <strong>7-Day Free Trial</strong>
-            <p>No charge today. Cancel anytime.</p>
+            <p>Full member access. No charge today.</p>
           </div>
 
           <div class="divider"></div>
 
           <div>
             <strong>$7.99 / Month</strong>
-            <p>After trial. Cancel anytime.</p>
+            <p>Starts after your trial. Cancel anytime.</p>
           </div>
         </div>
 
-        <form
-          class="signup-form"
-          name="jackpot-insider-interest"
-          method="POST"
-          action="/success.html"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-        >
-          <input type="hidden" name="form-name" value="jackpot-insider-interest">
-          <p class="hidden">
-            <label>Do not fill this out: <input name="bot-field"></label>
-          </p>
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            aria-label="Email address"
-            required
+        <div id="membership-start">
+          <form
+            class="signup-form"
+            id="signup-form"
+            name="jackpot-membership-checkout"
+            method="POST"
+            action="/api/create-checkout-session"
           >
+            <div class="signup-field">
+              <label for="membership-email">Email address</label>
+              <input
+                type="email"
+                id="membership-email"
+                name="email"
+                autocomplete="email"
+                required
+              >
+            </div>
 
-          <button type="submit" class="gold-button">
-            Start Your 7-Day Free Trial
-          </button>
-        </form>
+            <button type="submit" class="gold-button" id="checkout-button">
+              Continue to Secure Payment
+            </button>
+          </form>
+          <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
+          <p class="signup-note">
+            Card required for the trial. You will not be charged until day 8.
+          </p>
+        </div>
+
+        <div class="embedded-checkout-shell" id="embedded-checkout-shell" hidden>
+          <div class="embedded-checkout-header">
+            <div>
+              <p class="checkout-kicker">Secure checkout</p>
+              <h3>Finish joining Jackpot JAX</h3>
+              <p>Your payment details stay protected by Stripe.</p>
+            </div>
+            <button type="button" class="checkout-back" id="change-email-button">
+              Change email
+            </button>
+          </div>
+          <div id="embedded-checkout" aria-label="Secure subscription payment form"></div>
+          <p class="checkout-trust">7 days free · Then $7.99/month · Cancel anytime</p>
+        </div>
       </div>
     </section>
 
@@ -246,7 +279,7 @@
   </main>
 
   <footer>
-    <p>© <span id="year"></span> JackpotJax</p>
+    <p>© <span id="year"></span> Jackpot JAX</p>
   </footer>
 
   <script src="script.js"></script>
