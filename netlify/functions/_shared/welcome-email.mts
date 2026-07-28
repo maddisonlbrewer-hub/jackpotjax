@@ -66,7 +66,7 @@ export const buildWelcomeEmail = (trialEndsAt: string | null) => {
       "",
       "You hit the Jackpot.",
       "",
-      "Your Jackpot JAX membership is officially active. Jacksonville’s best sales, new openings, estate finds, and hidden local deals are now headed straight to your inbox.",
+      "Jacksonville’s best sales, new openings, estate finds, and hidden local deals are now headed straight to your inbox.",
       "",
       billingSentence,
       "",
@@ -123,7 +123,7 @@ export const buildWelcomeEmail = (trialEndsAt: string | null) => {
                 You hit the Jackpot.
               </h1>
               <p style="max-width:520px;margin:0 auto;color:#c9d1db;font-size:16px;line-height:1.7;">
-                Your Jackpot JAX membership is officially active. Jacksonville’s best sales, new openings, estate finds, and hidden local deals are now headed straight to your inbox.
+                Jacksonville’s best sales, new openings, estate finds, and hidden local deals are now headed straight to your inbox.
               </p>
             </td>
           </tr>
