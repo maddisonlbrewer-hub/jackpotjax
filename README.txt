@@ -19,6 +19,12 @@ The signup form sends members to a server-side Stripe Checkout session.
 Before publishing this version, add these secret production environment variables in Netlify:
 - STRIPE_SECRET_KEY
 - STRIPE_PRICE_ID
+- STRIPE_WEBHOOK_SECRET
 
 STRIPE_PRICE_ID must reference the recurring $7.99/month Jackpot JAX Price in Stripe.
 Do not publish the paid checkout until both values are configured and tested in Stripe test mode.
+
+Stripe sends subscription changes to /api/stripe-webhook. The signed webhook
+stores each subscriber privately in the site-scoped jackpot-jax-subscribers
+Netlify Blobs store. Trialing and active subscriptions have access; canceled,
+unpaid, paused, and incomplete subscriptions do not.
