@@ -179,7 +179,7 @@ h1 span {
   border: 0;
   border-radius: 4px;
   background: linear-gradient(180deg, #d5a847, var(--gold));
-  color: white;
+  color: var(--ink);
   text-decoration: none;
   font: inherit;
   font-weight: 800;
@@ -697,6 +697,16 @@ footer {
   color: #aaa;
   text-align: center;
   font-size: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .membership-card {
+    transition: none;
+  }
 }
 
 @media (max-width: 960px) {

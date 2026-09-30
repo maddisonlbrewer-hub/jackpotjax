@@ -1,3 +1,30 @@
+import type { Config } from "@netlify/functions";
+import Stripe from "stripe";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 254;
+
+const jsonResponse = (body: object, status = 200) => Response.json(body, {
+  status,
+  headers: { "Cache-Control": "no-store" },
+});
+
+const readEmail = async (req: Request) => {
+  const contentType = req.headers.get("content-type") || "";
+
+  try {
+    if (contentType.includes("application/json")) {
+      const submitted = await req.json() as { email?: unknown };
+      return typeof submitted.email === "string" ? submitted.email.trim() : "";
+    }
+
+    const submitted = new URLSearchParams(await req.text());
+    return submitted.get("email")?.trim() || "";
+  } catch {
+    return null;
+  }
+};
+
 export default async (req: Request) => {
   if (req.method !== "POST") {
     return new Response("Method not allowed", {
@@ -10,86 +37,75 @@ export default async (req: Request) => {
   const stripePriceId = Netlify.env.get("STRIPE_PRICE_ID");
 
   if (!stripeSecretKey || !stripePriceId) {
-    return Response.json(
+    return jsonResponse(
       { error: "Paid checkout is not active yet. Please try again later." },
-      { status: 503, headers: { "Cache-Control": "no-store" } },
+      503,
     );
   }
 
-  const contentType = req.headers.get("content-type") || "";
-  let email: string | undefined;
-
-  if (contentType.includes("application/json")) {
-    const submitted = await req.json() as { email?: string };
-    email = submitted.email?.trim();
-  } else {
-    const submitted = new URLSearchParams(await req.text());
-    email = submitted.get("email")?.trim();
+  const email = await readEmail(req);
+  if (email === null) {
+    return jsonResponse({ error: "The checkout request was not valid." }, 400);
   }
 
-  if (!email) {
-    return Response.json(
-      { error: "Please enter an email address." },
-      { status: 400, headers: { "Cache-Control": "no-store" } },
-    );
+  if (
+    !email ||
+    email.length > MAX_EMAIL_LENGTH ||
+    !EMAIL_PATTERN.test(email)
+  ) {
+    return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
-  const checkoutParams = new URLSearchParams({
-    "allow_promotion_codes": "true",
-    "branding_settings[background_color]": "#08111D",
-    "branding_settings[border_style]": "rounded",
-    "branding_settings[button_color]": "#C58F2D",
-    "branding_settings[display_name]": "Jackpot JAX",
-    "branding_settings[font_family]": "inter",
-    "customer_email": email,
-    "line_items[0][price]": stripePriceId,
-    "line_items[0][quantity]": "1",
-    "mode": "subscription",
-    "payment_method_collection": "always",
-    "payment_method_types[0]": "card",
-    "redirect_on_completion": "never",
-    "subscription_data[trial_period_days]": "7",
-    "ui_mode": "embedded_page",
-    "wallet_options[link][display]": "never",
+  const stripe = new Stripe(stripeSecretKey, {
+    apiVersion: "2026-08-26.dahlia",
+    maxNetworkRetries: 2,
   });
 
-  const stripeResponse = await fetch(
-    "https://api.stripe.com/v1/checkout/sessions",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${stripeSecretKey}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+  try {
+    const checkoutSession = await stripe.checkout.sessions.create({
+      allow_promotion_codes: true,
+      branding_settings: {
+        background_color: "#08111D",
+        border_style: "rounded",
+        button_color: "#C58F2D",
+        display_name: "Jackpot JAX",
+        font_family: "inter",
       },
-      body: checkoutParams,
-    },
-  );
-
-  const checkoutSession = await stripeResponse.json() as {
-    client_secret?: string;
-    error?: { code?: string; type?: string };
-  };
-
-  if (!stripeResponse.ok || !checkoutSession.client_secret) {
-    console.error("Stripe Checkout Session creation failed", {
-      code: checkoutSession.error?.code,
-      status: stripeResponse.status,
-      type: checkoutSession.error?.type,
+      customer_email: email.toLowerCase(),
+      line_items: [{ price: stripePriceId, quantity: 1 }],
+      mode: "subscription",
+      payment_method_collection: "always",
+      payment_method_types: ["card"],
+      redirect_on_completion: "never",
+      subscription_data: { trial_period_days: 7 },
+      ui_mode: "embedded_page",
+      wallet_options: { link: { display: "never" } },
     });
 
-    return Response.json(
+    if (!checkoutSession.client_secret) {
+      throw new Error("Stripe did not return a Checkout client secret.");
+    }
+
+    return jsonResponse({ clientSecret: checkoutSession.client_secret });
+  } catch (error) {
+    const stripeError = error as {
+      code?: string;
+      statusCode?: number;
+      type?: string;
+    };
+    console.error("Stripe Checkout Session creation failed", {
+      code: stripeError.code,
+      status: stripeError.statusCode,
+      type: stripeError.type,
+    });
+
+    return jsonResponse(
       { error: "We couldn’t start secure checkout. Please try again in a moment." },
-      { status: 502, headers: { "Cache-Control": "no-store" } },
+      502,
     );
   }
-
-  return Response.json({ clientSecret: checkoutSession.client_secret }, {
-    headers: {
-      "Cache-Control": "no-store",
-    },
-  });
 };
 
-export const config = {
+export const config: Config = {
   path: "/api/create-checkout-session",
 };

@@ -100,7 +100,7 @@ export const buildWelcomeEmail = (trialEndsAt: string | null) => {
       <td align="center" style="padding:24px 12px 44px;">
         <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:640px;background:#111b29;border:1px solid #243347;border-collapse:collapse;">
           <tr>
-            <td style="padding:10px 24px;background:#c58f2d;color:#ffffff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-align:center;text-transform:uppercase;">
+            <td style="padding:10px 24px;background:#c58f2d;color:#171513;font-size:11px;font-weight:700;letter-spacing:1.5px;text-align:center;text-transform:uppercase;">
               Welcome to Jackpot JAX
             </td>
           </tr>
@@ -171,7 +171,7 @@ export const buildWelcomeEmail = (trialEndsAt: string | null) => {
           </tr>
           <tr>
             <td style="padding:24px 34px 40px;background:#f7f2e8;text-align:center;">
-              <a href="https://jackpotjax.co/newsletter-template" style="display:inline-block;padding:15px 24px;background:#c58f2d;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;">
+              <a href="https://jackpotjax.co/newsletter-template" style="display:inline-block;padding:15px 24px;background:#c58f2d;color:#171513;font-size:13px;font-weight:700;text-decoration:none;">
                 Preview Your Member Deal Drop
               </a>
             </td>

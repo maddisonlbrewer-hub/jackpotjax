@@ -124,7 +124,10 @@ export default async (req: Request, context: Context) => {
     return new Response("Webhook is not configured", { status: 503 });
   }
 
-  const stripe = new Stripe(stripeSecretKey);
+  const stripe = new Stripe(stripeSecretKey, {
+    apiVersion: "2026-08-26.dahlia",
+    maxNetworkRetries: 2,
+  });
   const rawBody = await req.text();
   let event: Stripe.Event;
 

@@ -20,6 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttonLabel = checkoutButton.textContent.trim();
   let embeddedCheckout;
 
+  class CheckoutError extends Error {}
+
+  const readJsonResponse = async (response, fallbackMessage) => {
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!contentType.includes("application/json")) {
+      throw new CheckoutError(fallbackMessage);
+    }
+
+    try {
+      return await response.json();
+    } catch {
+      throw new CheckoutError(fallbackMessage);
+    }
+  };
+
   const showSignupError = (message) => {
     signupStatus.textContent = message;
     signupStatus.classList.add("is-error");
@@ -61,14 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { Accept: "application/json" },
         cache: "no-store",
       });
-      const config = await configResponse.json();
+      const config = await readJsonResponse(
+        configResponse,
+        "Secure checkout is not available yet.",
+      );
 
       if (!configResponse.ok || !config.publishableKey) {
-        throw new Error(config.error || "Secure checkout is not available yet.");
+        throw new CheckoutError(config.error || "Secure checkout is not available yet.");
       }
 
       if (typeof window.Stripe !== "function") {
-        throw new Error("Secure checkout could not load. Please refresh and try again.");
+        throw new CheckoutError("Secure checkout could not load. Please refresh and try again.");
       }
 
       const stripe = window.Stripe(config.publishableKey);
@@ -83,10 +102,13 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           body: JSON.stringify({ email }),
         });
-        const session = await sessionResponse.json();
+        const session = await readJsonResponse(
+          sessionResponse,
+          "We couldn’t start secure checkout. Please try again in a moment.",
+        );
 
         if (!sessionResponse.ok || !session.clientSecret) {
-          throw new Error(session.error || "We couldn’t start secure checkout.");
+          throw new CheckoutError(session.error || "We couldn’t start secure checkout.");
         }
 
         return session.clientSecret;
@@ -106,7 +128,18 @@ document.addEventListener("DOMContentLoaded", () => {
       checkoutShell.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (error) {
       console.error("Embedded checkout initialization failed", error);
-      showSignupError(error instanceof Error ? error.message : "Please try again.");
+      if (embeddedCheckout) {
+        embeddedCheckout.destroy();
+        embeddedCheckout = undefined;
+      }
+      checkoutShell.hidden = true;
+      membershipStart.hidden = false;
+      membershipCard?.classList.remove("checkout-active");
+      showSignupError(
+        error instanceof CheckoutError
+          ? error.message
+          : "Secure checkout could not load. Please refresh and try again.",
+      );
     }
   });
 
